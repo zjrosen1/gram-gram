@@ -1,0 +1,91 @@
+<div class="modal fade" id="recipientModal" tabindex="-1" role="dialog" aria-labelledby="recipientModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="recipientModalLabel">Change Recipient</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="existing-tab" data-toggle="tab" href="#existing" role="tab" aria-controls="existing" aria-selected="true">
+              Exisiting
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="new-recipient-tab" data-toggle="tab" href="#new-recipient" role="tab" aria-controls="new-recipient" aria-selected="false">
+              New
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="existing" role="tabpanel" aria-labelledby="existing-tab">
+            <div class="table-responsive">
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @current_user.recipients.each do |r| %>
+                    <tr>
+                      <td><%= r.name %></td>
+                      <td><%= r.short_address %></td>
+                      <td>
+                        <button class="btn btn-primary btn-sm">Select</button>
+                      </td>
+                    </tr>
+                  <% end %>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+          <div class="tab-pane fade" id="new-recipient" role="tabpanel" aria-labelledby="new-recipient-tab">
+            <%= form_with model: @recipient, local: true do |form| %>
+              <div class="form-group">
+                <label>Name</label>
+                <%= form.text_field :name, class: 'form-control' %>
+              </div>
+              <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <%= form.text_field :address_line1, class: 'form-control' %>
+              </div>
+              <div class="form-group">
+                <label for="inputAddress2">Address 2</label>
+                <%= form.text_field :address_line2, class: 'form-control' %>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCity">City</label>
+                  <%= form.text_field :address_city, class: 'form-control' %>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputState">State</label>
+                  <%= form.text_field :address_state, class: 'form-control' %>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="inputZip">Zip</label>
+                  <%= form.text_field :address_zip, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-spinner py-3 px-5">
+                  Save
+                </button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

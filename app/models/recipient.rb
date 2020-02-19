@@ -15,4 +15,10 @@ class Recipient < ApplicationRecord
       address_zip: address_zip
     }
   end
+
+  def short_address
+    street_addr = address_line1
+    street_addr = "#{street_addr} #{address_line2}" if address_line2
+    "#{street_addr}, #{address_city}, #{address_state} #{address_zip}"
+  end
 end
